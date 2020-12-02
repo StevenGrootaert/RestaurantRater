@@ -101,5 +101,21 @@ namespace RestaurantRater.Controllers
             }
             return View(restuarant);
         }
+
+        // GET: Restaurant/Details/{id}
+        public ActionResult Details(int? id) // this block of code happens a lot and SOLID it is not.. it can also be refactored to be a 'single' method that gets called like "find restaurant by {id}
+            // right click on Details and then make the view from the templates vid #8 at 3:30 or so
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Restaurant restaurant = _db.Restaurants.Find(id);
+            if (restaurant == null)
+            {
+                return HttpNotFound();
+            }
+            return View(restaurant);
+        }
     }
 }
